@@ -1,0 +1,7 @@
+{
+  "name": "llmint-agent-recipe-auditor",
+  "version": "0.1.0",
+  "description": "Claude Code companion plugin for LLMint agentic Markdown auditing. Bundles a skill and runtime hooks that call the LLMint CLI when agent harness files are loaded or edited.",
+  "author": "LLMint project",
+  "license": "MIT"
+}

@@ -1,0 +1,60 @@
+{
+  "hooks": {
+    "InstructionsLoaded": [
+      {
+        "matcher": "session_start|nested_traversal|path_glob_match|include|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/bin/llmint-hook-gate.js", "instructions-loaded"],
+            "timeout": 20,
+            "statusMessage": "LLMint auditing loaded agent instructions"
+          }
+        ]
+      }
+    ],
+    "FileChanged": [
+      {
+        "matcher": "CLAUDE.md|CLAUDE.local.md|AGENTS.md|GEMINI.md|SKILL.md",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/bin/llmint-hook-gate.js", "file-changed"],
+            "timeout": 20,
+            "statusMessage": "LLMint checking changed agent recipe"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/bin/llmint-hook-gate.js", "post-edit"],
+            "timeout": 20,
+            "statusMessage": "LLMint checking edited harness file"
+          }
+        ]
+      }
+    ],
+    "ConfigChange": [
+      {
+        "matcher": "project_settings|local_settings|skills",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/bin/llmint-hook-gate.js", "config-change"],
+            "timeout": 20,
+            "statusMessage": "LLMint checking Claude configuration drift"
+          }
+        ]
+      }
+    ]
+  }
+}
